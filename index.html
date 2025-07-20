@@ -15,30 +15,33 @@
       background: linear-gradient(135deg, #ff5858, #f857a6);
       color: white;
     }
+
+    /* CSS for the circular logo (no change here) */
+    .circular-logo {
+      width: 60px; /* Adjust size as needed */
+      height: 60px; /* Must be same as width */
+      border-radius: 50%; /* Makes the image circular */
+      object-fit: cover; /* Ensures the image covers the circle without distortion */
+      border: 2px solid white; /* Optional: Adds a white border */
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow */
+    }
   </style>
 </head>
 <body class="relative min-h-screen px-4 text-center flex flex-col items-center justify-center">
 
+<div class="absolute top-4 left-4">
+  <img src="logo.png" alt="Hourlyt Logo" class="circular-logo" />
+</div>
 
-<!-- Contact Button at Top Right -->
 <div class="absolute top-4 right-4">
   <a href="mailto:support@hourlyt.com" class="bg-white text-pink-600 font-semibold px-4 py-2 rounded-lg shadow hover:bg-pink-100 transition duration-300">
     📩 Contact Us
   </a>
 </div>
 
-
-  <!-- LOGO + Tagline -->
-  <div class="mb-6 text-center">
-    <img src="logo.png" alt="Hourlyt Logo" class="w-41 md:w-55 mx-auto mb-2" />
-    
-  </div>
-
-  <!-- Main Message -->
   <h1 class="text-4xl md:text-5xl font-bold mb-4">We're Building Something Amazing!</h1>
   <p class="text-lg md:text-xl mb-8">Hourlyt is currently under construction. Stay tuned for a smarter way to book hotels — by the hour!</p>
 
-  <!-- Countdown -->
   <div class="flex space-x-4 text-3xl font-bold mb-10">
     <div>
       <span id="days">00</span>
@@ -58,7 +61,6 @@
     </div>
   </div>
 
-  <!-- Contact Section -->
   <div id="contact" class="mt-10 pt-10">
     <p class="text-xl">Want to stay updated? Reach us at:</p>
     <a href="mailto:support@hourlyt.com" class="inline-block mt-4 px-6 py-3 bg-white text-pink-600 font-semibold rounded-lg shadow hover:bg-pink-100 transition duration-300">
@@ -67,21 +69,30 @@
     <p class="mt-6 text-sm opacity-75">© 2025 Hourlyt – All Rights Reserved</p>
   </div>
 
-  <!-- Countdown Script -->
   <script>
+    // Current date is July 20, 2025
     const launchDate = new Date("2025-09-01T00:00:00").getTime();
     const countdown = setInterval(() => {
       const now = new Date().getTime();
       const distance = launchDate - now;
 
-      document.getElementById("days").textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-      document.getElementById("hours").textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-      document.getElementById("minutes").textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-      document.getElementById("seconds").textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+      // Calculate days, hours, minutes, seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+      // Display the result in the elements
+      document.getElementById("days").textContent = String(days).padStart(2, '0');
+      document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+
+      // If the countdown is finished
       if (distance < 0) {
         clearInterval(countdown);
-        document.body.innerHTML = "<h1 class='text-4xl font-bold text-white'>We're Live!</h1>";
+        // You might want a different message or redirect when launched
+        document.body.innerHTML = "<h1 class='text-4xl font-bold text-white text-center'>We're Live!</h1>";
       }
     }, 1000);
   </script>
